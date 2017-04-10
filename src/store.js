@@ -2,6 +2,7 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 
 export const ADD_TO_LIST = "ADD_TO_LIST";
+export const REMOVE_FROM_LIST = "REMOVE_FROM_LIST";
 export const ORDER_LIST = "ORDER_LIST";
 
 Vue.use(Vuex);
@@ -9,7 +10,7 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     list: [],
-    listOrder: [1, 2, 0],
+    listOrder: [2, 0, 1, 4, 3],
     outputList: []
   },
   mutations: {
@@ -18,15 +19,23 @@ export default new Vuex.Store({
         state.list.push(itemName);
       }
     },
+    [REMOVE_FROM_LIST](state, itemId){
+      state.list.splice(itemId,1);
+    },
     [ORDER_LIST] (state){
       state.outputList = [];
-      for (let i = 0; i < state.listOrder.length && i < state.list.length; i++) {
+      for (let i = 0; i < state.listOrder.length || i < state.list.length; i++) {
         let index = state.listOrder[i];
-        state.outputList.push(state.list[index]);
+        if (state.list[index]) {
+          state.outputList.push(state.list[index]);
+        }
       }
     }
   },
   getters: {
+    getList: state=>{
+      return state.list;
+    },
     getOrderedList: state => {
       return state.outputList;
     },
