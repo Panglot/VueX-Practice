@@ -1,8 +1,8 @@
 <template>
   <div>
-    <h2 @click="wtf">List of items</h2>
+    <h2>List of items</h2>
     <ul>
-      <li v-for="item in items">{{item}}</li>
+      <li v-for="item in this.$store.getters.getOrderedList">{{item}}</li>
     </ul>
   </div>
 </template>
@@ -11,14 +11,6 @@
   export default{
     data(){
       return {
-        items: this.$store.getters.getList
-      }
-    },
-    methods: {
-      wtf (){
-        console.log(this);
-        console.log(this.$store);
-        console.log(this.$store.getters.getList);
       }
     }
   }

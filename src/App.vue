@@ -1,23 +1,24 @@
 <template>
   <div id="app">
     <img src="./assets/logo.png">
-    <hello></hello>
+    <h2>Welcome to my test app with vue and vuex.</h2>
     <myinput></myinput>
-    <displaylist></displaylist>
+    <displaylist id="listStyle"></displaylist>
+    <reorderlist></reorderlist>
   </div>
 </template>
 
 <script>
-  import Hello from './components/Hello';
   import Myinput from './components/MyInput';
   import Displaylist from './components/DisplayList';
+  import Reorderlist from './components/ReorderList';
 
   export default {
     name: 'app',
     components: {
-      Hello,
       Myinput,
-      Displaylist
+      Displaylist,
+      Reorderlist
     }
   }
 </script>
@@ -34,5 +35,8 @@
 
   body {
     background-color: floralwhite;
+  }
+  #listStyle{
+    display: inline-block;
   }
 </style>
