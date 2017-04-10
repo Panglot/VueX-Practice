@@ -2,12 +2,14 @@
   <div>
     <h2>Original item list</h2>
     <ol class="lists" start="0">
-      <li v-for="item in this.$store.getters.getList"><p>{{item}}</p></li>
+      <li v-for="item in getList"><p>{{item}}</p></li>
     </ol>
-    <h2>List of items</h2>
+    <h2>Reordered item list</h2>
     <ol start="0" class="lists">
-      <li v-bind:id="index" v-for="(item, index) in this.$store.getters.getOrderedList"><p>{{item}}
-        <button @click="removeElement" class="removeButtons">x</button></p>
+      <li v-bind:id="index" v-for="(item, index) in getOrderedList">
+        <p>{{item}}
+          <button @click="removeElement" class="removeButtons">x</button>
+        </p>
       </li>
     </ol>
   </div>
@@ -16,6 +18,7 @@
 <script>
   import {REMOVE_FROM_LIST} from './../store';
   import {ORDER_LIST} from './../store';
+  import {mapGetters} from 'vuex';
 
   export default{
     data(){
@@ -27,6 +30,12 @@
         this.$store.commit(REMOVE_FROM_LIST, index);
         this.$store.commit(ORDER_LIST, this.$store.listOrder);
       }
+    },
+    computed: {
+      ...mapGetters({
+        getList: 'getList',
+        getOrderedList: 'getOrderedList'
+      })
     }
   }
 </script>
@@ -37,7 +46,8 @@
     text-align: left;
     font-weight: bold;
   }
-  .lists>li>p{
+
+  .lists > li > p {
     font-weight: normal;
     margin: 0;
   }
