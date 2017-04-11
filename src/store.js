@@ -4,6 +4,7 @@ import Vuex from 'vuex';
 export const ADD_TO_LIST = "ADD_TO_LIST";
 export const REMOVE_FROM_LIST = "REMOVE_FROM_LIST";
 export const ORDER_LIST = "ORDER_LIST";
+export const REFRESH_LIST_ORDER = "REFRESH_LIST_ORDER";
 
 Vue.use(Vuex);
 
@@ -30,6 +31,9 @@ export default new Vuex.Store({
           state.outputList.push(state.list[index]);
         }
       }
+    },
+    [REFRESH_LIST_ORDER] (state, newListOrder){
+      state.listOrder = newListOrder;
     }
   },
   getters: {
@@ -42,15 +46,6 @@ export default new Vuex.Store({
     getListOrder: state => {
       return state.listOrder;
     }
-  },
-  computed: {
-    accessListOrder: {
-      get(){
-        return this.$store.getters.getListOrder;
-      },
-      set(value){
-        this.state.listOrder = value;
-      }
-    }
   }
+
 })
