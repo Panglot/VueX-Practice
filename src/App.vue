@@ -5,6 +5,7 @@
     <myinput></myinput>
     <displaylist id="listStyle"></displaylist>
     <reorderlist></reorderlist>
+    <requestpractice></requestpractice>
   </div>
 </template>
 
@@ -12,13 +13,15 @@
   import Myinput from './components/MyInput';
   import Displaylist from './components/DisplayList';
   import Reorderlist from './components/ReorderList';
+  import Requestpractice from './components/RequestsPractice';
 
   export default {
     name: 'app',
     components: {
       Myinput,
       Displaylist,
-      Reorderlist
+      Reorderlist,
+      Requestpractice
     }
   }
 </script>

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h2>Original item list</h2>
+    <h2 @click="requestTest">Original item list</h2>
     <ol class="lists" start="0">
       <li v-for="item in getList"><p>{{item}}</p></li>
     </ol>
@@ -29,6 +29,11 @@
         let index = ev.target.parentNode.id;
         this.$store.commit(REMOVE_FROM_LIST, index);
         this.$store.commit(ORDER_LIST, this.$store.listOrder);
+      },
+      requestTest(){
+          this.$http.get('https://jsonplaceholder.typicode.com/albums').then(responce =>{
+              console.log(responce.data);
+          })
       }
     },
     computed: {
