@@ -55,6 +55,7 @@
   .lists > li > p {
     font-weight: normal;
     margin: 0;
+    margin-bottom: 7px;
   }
 
   .removeButtons {

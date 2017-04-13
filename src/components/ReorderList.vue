@@ -1,6 +1,6 @@
 <template>
   <div>
-    <draggable v-model="draggableList" :move="onReorder" @start="drag=true" @end="drag=false">
+    <draggable :list="draggableList" :move="onReorder" @start="drag=true" @end="drag=false">
       <button v-for="element in draggableList">( {{element}} )</button>
     </draggable>
   </div>
@@ -14,13 +14,14 @@
   export default {
     data(){
       return {
-      	draggableList: this.$store.getters.getListOrder
+      	draggableList: [0,1,2,3,4]
       }
     },
     methods: {
-      onReorder(){
+      onReorder(evt){
       	this.$store.commit(REFRESH_LIST_ORDER, this.draggableList)
         this.$store.commit(ORDER_LIST);
+      	console.log(evt.target.innerText);
       }
     },
     components: {

@@ -1,18 +1,22 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
+import axios from 'axios';
 
 export const ADD_TO_LIST = "ADD_TO_LIST";
 export const REMOVE_FROM_LIST = "REMOVE_FROM_LIST";
 export const ORDER_LIST = "ORDER_LIST";
 export const REFRESH_LIST_ORDER = "REFRESH_LIST_ORDER";
+export const REFRESH_POSTS = "REFRESH_POSTS";
 
 Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
     list: [],
-    listOrder: [2, 0, 1, 4, 3],
-    outputList: []
+    listOrder: [0, 1, 2, 3, 4],
+    outputList: [],
+    root: 'https://jsonplaceholder.typicode.com',
+    posts: {}
   },
   mutations: {
     [ADD_TO_LIST] (state, itemName){
@@ -21,7 +25,7 @@ export default new Vuex.Store({
       }
     },
     [REMOVE_FROM_LIST](state, itemId){
-      state.list.splice(itemId,1);
+      state.list.splice(itemId, 1);
     },
     [ORDER_LIST] (state){
       state.outputList = [];
@@ -33,11 +37,28 @@ export default new Vuex.Store({
       }
     },
     [REFRESH_LIST_ORDER] (state, newListOrder){
-      state.listOrder = newListOrder;
+      state.listOrder = [];
+      state.listOrder = newListOrder
+    },
+    [REFRESH_POSTS](state, newPosts){
+      state.posts = {};
+      state.posts = newPosts
+    }
+  },
+  actions: {
+    postsRequester (context){
+      return new Promise((resolve) => {
+        axios.get(context.state.root + "/posts").then(responce => {
+          context.commit('REFRESH_POSTS', responce.data);
+          resolve(context.getters.getPosts);
+        }).catch(error => {
+          alert(error)
+        })
+      })
     }
   },
   getters: {
-    getList: state=>{
+    getList: state => {
       return state.list;
     },
     getOrderedList: state => {
@@ -45,6 +66,9 @@ export default new Vuex.Store({
     },
     getListOrder: state => {
       return state.listOrder;
+    },
+    getPosts: state => {
+      return state.posts;
     }
   }
 
